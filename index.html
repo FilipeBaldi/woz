@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integração Chat Secullum</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        
+        .botao-chat-personalizado {
+            background-color: #004AAD;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .botao-chat-personalizado:hover {
+            background-color: #003380;
+        }
+
+        /* --- O SEGREDO ESTÁ AQUI --- */
+        /* Usamos as classes exatas que descobrimos no código JS: 
+           .octadesk-octachat-app (o container)
+           .octachatAppOpen (quando o chat está aberto) 
+        */
+
+        div.octadesk-octachat-app.octachatAppOpen {
+            width: 550px !important;  /* BEM mais largo (original é ~360px) */
+            height: 80vh !important;  /* 80% da altura da tela */
+            max-height: 800px !important;
+            max-width: 95vw !important; /* Segurança para não vazar da tela */
+            
+            /* Correção para garantir que o iframe dentro acompanhe o tamanho */
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        /* Força os iframes internos a ocuparem 100% desse novo tamanho */
+        div.octadesk-octachat-app.octachatAppOpen iframe {
+            width: 100% !important;
+            height: 100% !important;
+            max-height: none !important;
+            min-height: 100% !important;
+        }
+
+        /* AJUSTE MOBILE: No celular volta ao normal para não quebrar */
+        @media (max-width: 600px) {
+            div.octadesk-octachat-app.octachatAppOpen {
+                width: 100% !important;
+                height: 100% !important;
+                bottom: 0 !important;
+                right: 0 !important;
+                border-radius: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bem-vindo ao Suporte</h1>
+    <p>Sempre verifique as informações da IA.</p>
+
+ 
+    <script>
+      (function (o, c) {
+        o.octadesk = o.octadesk || {};
+        o.octadesk.chatOptions = {
+          subDomain: 'secullum',
+          showButton: 'true',
+          openOnMessage: 'true',
+          showFooterPoweredBy: 'false',
+          hide: 'false'
+        };
+        var bd = c.getElementsByTagName("body")[0];
+        var sc = c.createElement("script");
+        sc.async = 1;
+        sc.src = 'https://cdn.octadesk.com/embed.js';
+        bd.appendChild(sc);
+      })(window, document);
+    </script>
+
+</body>
+</html>
